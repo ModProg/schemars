@@ -150,7 +150,13 @@ fn expr_for_external_tagged_enum<'a>(
             count += 1;
         })
         .partition(|v| v.is_unit() && v.attrs.is_default());
-    let unit_names = unit_variants.iter().map(|v| v.name());
+
+    let unit_names = unit_variants.iter().map(|v| {
+        let mut names: Vec<String> = Vec::with_capacity(1 + v.attrs.aliases.len());
+        names.extend_from_slice(&v.attrs.aliases);
+        names.push(v.name());
+        names
+    }).flatten();
     let unit_schema = schema_object(quote! {
         instance_type: Some(schemars::schema::InstanceType::String.into()),
         enum_values: Some(vec![#(#unit_names.into()),*]),

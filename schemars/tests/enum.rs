@@ -118,6 +118,7 @@ enum SimpleInternal {
 fn enum_simple_internal_tag() -> TestResult {
     test_default_generated_schema::<SimpleInternal>("enum-simple-internal")
 }
+<<<<<<< HEAD
 
 #[allow(dead_code)]
 #[derive(JsonSchema)]
@@ -136,3 +137,18 @@ enum SoundOfMusic {
 fn enum_unit_with_doc_comments() -> TestResult {
     test_default_generated_schema::<SoundOfMusic>("enum-unit-doc")
 }
+||||||| e9d5f40
+=======
+
+#[derive(Debug, JsonSchema)]
+pub enum Aliased {
+    #[schemars(alias = "v1", alias = "variant1")]
+    V1,
+    #[schemars(alias = "v2", alias = "variant2")]
+    V2,
+}
+#[test]
+fn enum_aliased() -> TestResult {
+    test_default_generated_schema::<Aliased>("enum-aliased")
+}
+>>>>>>> 8024f2986554cb10877dc21acdd39dc9037e8b8d
